@@ -1,15 +1,15 @@
 pipeline {
     agent any
     environment {
-        AZURE_CREDENTIALS_ID = 'azure-service-principal'
-        RESOURCE_GROUP = 'rg-jenkins'
-        APP_SERVICE_NAME = 'webapijenkins84758'
+        AZURE_CREDENTIALS_ID = 'jenkins-pipeline-sp'
+        RESOURCE_GROUP = 'jecrc_bhavika_rg1'
+        APP_SERVICE_NAME = 'jenkinsbhavika'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'master', url: 'https://github.com/Cloud-Authority/WebApiJenkins.git'
+                git branch: 'master', url: 'https://github.com/Bhavika6940/WebApiJenkin/tree/master'
             }
         }
 

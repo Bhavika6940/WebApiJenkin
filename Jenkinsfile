@@ -54,12 +54,23 @@ pipeline {
 
         stage('Deploy to Azure') {
             steps {
-                bat '''
-                powershell Compress-Archive -Path WebApiJenkins\\publish\\* -DestinationPath publish.zip -Force
-                az webapp deploy --resource-group jenkins-bhavika-rg --name jenkins-bhavika-app123 --src-path publish.zip --type zip
+                withCredentials([
+                    string(credentialsId: 'azure-client-id', variable: 'AZURE_CLIENT_ID'),
+                    string(credentialsId: 'azure-client-secret', variable: 'AZURE_CLIENT_SECRET'),
+                    string(credentialsId: 'azure-tenant-id', variable: 'AZURE_TENANT_ID')
+                ]) {
+                    bat '''
+                        az login --service-principal ^
+                        --username %AZURE_CLIENT_ID% ^
+                        --password %AZURE_CLIENT_SECRET% ^
+                        --tenant %AZURE_TENANT_ID%
 
-                '''
+                        powershell Compress-Archive -Path WebApiJenkins\\publish\\* -DestinationPath publish.zip -Force
+
+                        az webapp deploy --resource-group jenkins-bhavika-rg --name jenkins-bhavika-app123 --src-path publish.zip --type zip
+                    '''
+                }
             }
-        }   
-    }
+        }
+
 }

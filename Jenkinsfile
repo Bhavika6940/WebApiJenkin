@@ -33,15 +33,6 @@ pipeline {
             }
         }
 
-        stage('Remove Old Resources from State') {
-            steps {
-                bat '''
-                    terraform state rm azurerm_app_service.app || exit 0
-                    terraform state rm azurerm_service_plan.plan || exit 0
-                    terraform state rm azurerm_resource_group.rg || exit 0
-                '''
-            }
-        }
 
         stage('Terraform Apply') {
             steps {

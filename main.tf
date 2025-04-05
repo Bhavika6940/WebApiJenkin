@@ -23,6 +23,8 @@ resource "azurerm_service_plan" "plan" {
     tier = "Basic"
     size = "B1"
   }
+
+  os_type = "Windows" # ✅ REQUIRED for new service_plan
 }
 
 # App Service (Web App)
@@ -34,6 +36,7 @@ resource "azurerm_app_service" "app" {
 
   site_config {
     always_on = true
+    dotnet_framework_version = "v4.0" # Optional: since you're using Windows
   }
 
   app_settings = {

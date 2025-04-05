@@ -56,8 +56,7 @@ pipeline {
             steps {
                 bat '''
                 powershell Compress-Archive -Path WebApiJenkins\\publish\\* -DestinationPath publish.zip -Force
-                az webapp deploy --resource-group jenkins-bhavika-rg --name jenkins-bhavika-app123 --src-path publish.zip --type zip
-
+                az webapp deployment source config-zip --resource-group appservice-resource-group --name webapijenkinsrani --src publish.zip
                 '''
             }
         }   

@@ -48,7 +48,7 @@ pipeline {
         steps {
             dir('WebApiJenkins') { // Adjust to your .NET project folder
                 bat 'dotnet publish -c Release -o publish'
-'
+
             }
         }
     }

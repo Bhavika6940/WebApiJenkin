@@ -47,7 +47,8 @@ pipeline {
     stage('Build .NET App') {
         steps {
             dir('WebApiJenkins') { // Adjust to your .NET project folder
-                bat 'dotnet publish -c Release -o publish'
+                bat 'dotnet publish WebApiJenkins.csproj -c Release -o publish
+'
             }
         }
     }
